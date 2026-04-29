@@ -3,36 +3,39 @@
 A digital workbench designed to visualize the "metamorphosis" of information from human-readable text into its various numeric and algorithmic representations.
 
 ## The Visual Metaphor: "The Extrusion"
-Information is treated as a physical substance. The user types at the "Now" line (the typewriter input), and as the text is produced, it is extruded into the "Past" (moving up the screen). 
+Information is treated as a physical substance. The user types at the "Now" line (the typewriter input), and as the text is produced, it is extruded into the "Past" (moving up the screen).
 
-- **The Present (Input):** Clear, elegant, and legible characters.
+- **The Present (Row 0):** Always 100% human-readable. Clear, elegant, and legible characters.
 - **The Past (History):** As data moves further from the point of creation, it loses its "human skin" and reveals its "numeric skeleton."
 
 ## Core Mechanics
 
-### 1. The Random Fade (Text to Hex)
-As characters ascend, they enter a transition zone where they flicker between their character form and their Hexadecimal value.
-- **Probability Logic:** The likelihood of a cell showing Hex increases with its distance (Y-index) from the input line.
-- **Visual Effect:** A vibrating, "glitchy" transition that stabilizes into a solid column of Hex data in the upper reaches of the screen.
+### 1. Synchronized Row Flicker (Text to Hex)
+The transition from character to Hexadecimal value happens at the **row level** to emphasize structural integrity.
+- **Linear Probability:** 
+    - Row 0: 0% Hex.
+    - Row 20: 100% Hex (solidified).
+    - Rows 1-19: Linear 5% increase in probability per row.
+- **Rhythmic Timing:** 
+    - The transition duration is exactly **1 second**, creating a slow, meditative fade.
+    - The row state is re-evaluated every **1 second**.
+    - All characters in a single row flip states simultaneously.
 
-### 2. Multi-Perspective Columns
-Depending on the screen real estate, the same information is shown in parallel flows:
-- **Central Flow:** The Text/Hex transition. Constant-width grid where whitespace and newlines are represented as distinct symbols or empty cells rather than breaking the layout.
-- **Raw Binary (The Texture):** A parallel column representing each character as an 8-bit block. High-contrast cells (filled/empty) create a unique visual texture for every string.
-- **The Repacking (Base64/32):** A complex visualization showing how the 8-bit blocks are "sliced" into 6-bit or 5-bit chunks. 
-    - **SVG Overlays:** Thin lines or "threads" connect the bits from the 8-bit column to their new homes in the repacked column, echoing the project's knitting/weaving theme.
+### 2. The Data Stream
+- **Character-by-Character:** Extrusion happens as the user types, not on "Enter."
+- **6-Byte Constraints:** Each row is exactly 6 bytes (48 bits) wide. This specific width is chosen to facilitate future Base64 (6-bit) and Base32 (5-bit) repacking visualizations.
+- **Technical Symbols:** Special characters are represented by common technical editor symbols to remain visible:
+    - Space: `·` (middle dot)
+    - Newline: `↵` (carriage return arrow)
+    - Tab: `→` (right arrow)
 
-## Technical Implementation (Digital Prototype)
+### 3. Multi-Perspective Columns
+- **Visual Binary (Left):** A 10x3px vertical bit-texture, creating a unique "fingerprint" for every character string.
+- **The Fountain (Center):** The primary Text/Hex transition grid.
+- **Binary Text (Right):** Literal 8-bit strings for each character.
+- **[Planned] The Repacking:** A column showing bits being re-sliced into 6-bit chunks for Base64 encoding.
 
-### Frontend Stack
-- **HTML/CSS Grid:** For the primary column layout and character-cell alignment.
-- **Web Typography:** High-contrast monospaced fonts (e.g., JetBrains Mono) to maintain grid integrity.
-- **Vanilla JavaScript:** 
-    - A "Flicker Engine" to handle the random state changes of cells.
-    - A reactive flow where new input "pushes" the history upwards.
-- **SVG:** To draw the bit-repacking "threads" between columns.
-
-## Goals for the Digital Medium
-- Provide a "live" experience where the user can feel the weight of their data.
-- Experiment with color palettes (e.g., high-contrast blueprint, dark terminal, or parchment) to prepare for physical manifestation.
-- Allow for "presets" of famous text/code to demonstrate specific encoding patterns.
+## Visual Design & Accessibility
+- **The "Parchment" Theme:** An off-white, high-contrast palette (`#fdfbf7` background) designed for readability and accessibility (specifically considering dyslexia).
+- **Typography:** High-contrast monospaced fonts (e.g., JetBrains Mono) to maintain strict grid alignment.
+- **Material Intention:** The digital prototype serves as a study for future physical pieces (print, light-sensitive paper, or CNC-engraved panels).

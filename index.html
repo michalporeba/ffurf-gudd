@@ -93,7 +93,7 @@
 
         .cell .char, .cell .hex {
             position: absolute;
-            transition: opacity 0.3s ease; /* Slower transition */
+            transition: opacity 1.0s ease-in-out; /* Exactly one second for the change */
         }
 
         .cell .hex {
@@ -288,33 +288,25 @@
         setInterval(() => {
             const rows = Array.from(container.children);
             rows.forEach((row, rowIndex) => {
-                const cells = row.querySelectorAll('.cell');
-                
-                // Linear probability: 0% at row 0, 100% at row 20+
+                // One probability roll for the ENTIRE row
                 const probability = Math.min(1.0, rowIndex * 0.05);
+                const showHex = Math.random() < probability;
 
+                const cells = row.querySelectorAll('.cell');
                 cells.forEach(cell => {
                     if (!cell.querySelector('.hex')) return; // Skip empty cells
 
-                    if (Math.random() < probability) {
+                    if (showHex) {
                         cell.classList.add('is-hex');
                     } else {
-                        // Only flicker back if we aren't at solid 100%
-                        if (probability < 1.0 && Math.random() > 0.95) {
-                            cell.classList.remove('is-hex');
-                        } else if (probability === 0) {
-                            // Row 0 is always characters
-                            cell.classList.remove('is-hex');
-                        }
+                        cell.classList.remove('is-hex');
                     }
                 });
             });
-        }, 400);
+        }, 1000); // Process all rows every second
 
         // Initial welcome sequence
-        "FFURF GUDD\n".split('').forEach(addChar);
+        "FFURF GUDD: THE HIDDEN FORM. EXPLORING THE METAMORPHOSIS OF DATA.\n".split('').forEach(addChar);
     </script>
-
-
 </body>
 </html>
