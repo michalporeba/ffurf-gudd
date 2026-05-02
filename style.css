@@ -1,0 +1,130 @@
+:root {
+    --bg-color: #F6F4EB;
+    --text-color: #2C272E;
+    --accent-color: #917FB3;
+    --dim-color: rgba(44, 39, 46, 0.5);
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    font-family: 'IBM Plex Mono', monospace;
+    line-height: 1.8;
+    max-width: 800px;
+    margin: 6rem auto;
+    padding: 0 2rem;
+    -webkit-font-smoothing: antialiased;
+    position: relative;
+    /* Clearer scanlines */
+    background-image: linear-gradient(
+        rgba(44, 39, 46, 0.08) 1px, 
+        transparent 1px
+    );
+    background-size: 100% 4px;
+}
+
+/* Pronounced vignette */
+body::after {
+    content: "";
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: radial-gradient(circle, transparent 60%, rgba(44, 39, 46, 0.05) 100%);
+    pointer-events: none;
+    z-index: 10;
+}
+
+header {
+    margin-bottom: 4rem;
+}
+
+h1 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+}
+
+.subtitle {
+    color: var(--dim-color);
+    font-style: italic;
+}
+
+.mission {
+    margin-bottom: 5rem;
+    font-size: 1.1rem;
+}
+
+.mission p {
+    margin-bottom: 1.5rem;
+}
+
+h2 {
+    font-size: 1rem;
+    margin-bottom: 2rem;
+    font-weight: 400;
+    color: var(--dim-color);
+}
+
+.pillar-list {
+    list-style: none;
+    border-left: 1px dashed var(--dim-color);
+    padding-left: 2rem;
+}
+
+.pillar-item {
+    margin-bottom: 2.5rem;
+    display: flex;
+    align-items: flex-start;
+}
+
+.status {
+    font-size: 0.75rem;
+    color: var(--dim-color);
+    margin-right: 1.5rem;
+    margin-top: 0.3rem;
+    white-space: nowrap;
+}
+
+.pillar-item .title {
+    display: block;
+    font-weight: 700;
+    text-decoration: underline;
+    text-decoration-color: var(--dim-color);
+    margin-bottom: 0.5rem;
+}
+
+.pillar-item .desc {
+    display: block;
+    font-size: 0.95rem;
+    opacity: 0.8;
+}
+
+footer {
+    margin-top: 8rem;
+    padding-top: 2rem;
+    border-top: 1px solid rgba(44, 39, 46, 0.1);
+}
+
+.meta {
+    font-size: 0.8rem;
+    color: var(--dim-color);
+}
+
+.cursor {
+    animation: blink 1s step-end infinite;
+}
+
+@keyframes blink {
+    50% { opacity: 0; }
+}
+
+@media (max-width: 600px) {
+    body { margin: 3rem auto; }
+    .pillar-item { flex-direction: column; }
+    .status { margin-bottom: 0.5rem; }
+}
