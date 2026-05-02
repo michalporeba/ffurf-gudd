@@ -1,4 +1,4 @@
-# Concept 04.1: The Data Fountain (Information & Encoding)
+# The Data Fountain (Information & Encoding)
 
 A digital workbench designed to visualize the "metamorphosis" of information from human-readable text into its various numeric and algorithmic representations.
 
