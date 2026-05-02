@@ -284,26 +284,38 @@
             }
         }
 
-        // Flicker Engine
+        // Wave Engine
+        let waveRowIndex = 0;
         setInterval(() => {
             const rows = Array.from(container.children);
-            rows.forEach((row, rowIndex) => {
-                // One probability roll for the ENTIRE row
-                const probability = Math.min(1.0, rowIndex * 0.05);
-                const showHex = Math.random() < probability;
+            if (rows.length === 0) {
+                waveRowIndex = 0;
+                return;
+            }
 
-                const cells = row.querySelectorAll('.cell');
-                cells.forEach(cell => {
-                    if (!cell.querySelector('.hex')) return; // Skip empty cells
+            // If we've reached the end of the visible fountain or the 100% threshold, reset to start
+            if (waveRowIndex >= rows.length || waveRowIndex > 25) {
+                waveRowIndex = 0;
+            }
 
-                    if (showHex) {
-                        cell.classList.add('is-hex');
-                    } else {
-                        cell.classList.remove('is-hex');
-                    }
-                });
+            const row = rows[waveRowIndex];
+            // Linear probability: 0% at row 0, 100% at row 20+
+            const probability = Math.min(1.0, waveRowIndex * 0.05);
+
+            const cells = row.querySelectorAll('.cell');
+            cells.forEach(cell => {
+                if (!cell.querySelector('.hex')) return; // Skip empty cells
+
+                // Process every character independently within the row
+                if (Math.random() < probability) {
+                    cell.classList.add('is-hex');
+                } else {
+                    cell.classList.remove('is-hex');
+                }
             });
-        }, 1000); // Process all rows every second
+
+            waveRowIndex++;
+        }, 1000); // Move to the next row every second
 
         // Initial welcome sequence
         "FFURF GUDD: THE HIDDEN FORM. EXPLORING THE METAMORPHOSIS OF DATA.\n".split('').forEach(addChar);
